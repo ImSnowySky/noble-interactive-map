@@ -3,7 +3,8 @@ import { getZonesAction, getLocationsAction, getPointsAction, getLocations } fro
 
 const initialState = {
   pending: false,
-  zones: [],
+	zones: [],
+	currentZone: null,
   locations: [],
   points: [],
 };
@@ -14,6 +15,7 @@ export default handleActions(
 		[getZonesAction.success]: (state, { payload }) => ({
 			...state,
 			zones: payload,
+			currentZone: payload.length > 0 ? payload[0].id : null,
 			pending: false,
 		}),
 		[getLocationsAction.success]: (state, { payload }) => ({
