@@ -4,26 +4,24 @@ import map from './assets/test.png';
 
 class MapView extends React.Component {
   containerRef = React.createRef();
-  state = { isScrolling: false, currentX: 0, currentY: 0, zoom: 1 };
 
-  startScrollWithMouse = (e) => {
+  startScrollWithMouse = e => {
+    const { changeScrolling, changePosition } = this.props;
     e.preventDefault();
-    this.setState({
-      isScrolling: true,
-      currentX: e.screenX,
-      currentY: e.screenY,
-    });
+    changeScrolling(true);
+    changePosition(e.screenX, e.screenY);
   }
 
-  stopScrollWithMouse = (e) => {
+  stopScrollWithMouse = e => {
+    const { changeScrolling } = this.props;
     e.preventDefault();
-    this.setState({ isScrolling: false });
+    changeScrolling(false);
   }
 
   scrollWithMouse = (e) => {
+    const { scrolling, x: currentX, y: currentY, changePosition } = this.props;
     e.preventDefault(); 
-    const { isScrolling, currentX, currentY } = this.state;
-    if (!isScrolling) return;
+    if (!scrolling) return;
     const { screenX: newX, screenY: newY } = e;
     const diff = {
       x: newX - currentX,
@@ -35,31 +33,33 @@ class MapView extends React.Component {
       const { current: map } = this.containerRef;
       map.scroll(map.scrollLeft - diff.x, map.scrollTop - diff.y);
     }
-    this.setState({ currentX: newX, currentY: newY });
+
+    changePosition(newX, newY);
   }
 
-  zoomWithWheel = (e) => {
+  zoomWithWheel = e => {
     e.preventDefault();
     const { deltaY: delta } = e;
-    const newZoom = this.state.zoom - delta / 2000;
+    const { zoom, changeZoom } = this.props;
+    const newZoom = zoom - delta / 2000;
     if (newZoom > 0.75 && newZoom < 1.5) {
-      this.setState({ zoom: newZoom });
+      changeZoom(newZoom);
     }
   }
 
   componentDidMount() {
     if (this.containerRef && this.containerRef.current) {
       const { current: map } = this.containerRef;
+      map.addEventListener('mousedown', this.startScrollWithMouse);
       map.addEventListener('mouseup', this.stopScrollWithMouse);
       map.addEventListener('mousemove', this.scrollWithMouse);
-      map.addEventListener('mousedown', this.startScrollWithMouse);
       map.addEventListener('wheel', this.zoomWithWheel);
     }
   }
 
   render() {
-    const { isScrolling, zoom } = this.state;
-    return <MapContainer ref = {this.containerRef} draggable = "true" scrolling = {isScrolling}>
+    const { scrolling, zoom } = this.props;
+    return <MapContainer ref = {this.containerRef} draggable = "true" scrolling = {scrolling}>
       <CurrentMap src = {map} zoom = {zoom}/>
     </MapContainer>
   }

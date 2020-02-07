@@ -1,54 +1,14 @@
-import request from '../api';
-import { bindActionCreators } from 'redux';
+import { createAction } from 'redux-actions';
 import { actionTypes } from './constants';
-import createAsyncAction from '../../../helpers/create-async-action';
 
-export const getZonesAction = createAsyncAction(actionTypes.GET_ZONES);
-export const getLocationsAction = createAsyncAction(actionTypes.GET_LOCATIONS);
-export const getPointsAction = createAsyncAction(actionTypes.GETPOINTS);
+export const changeScrolling = createAction(
+  actionTypes.CHANGE_SCROLLING, scrolling => scrolling
+);
 
-export const getZones = () => async dispatch => {
-  const zonesAction = bindActionCreators(getZonesAction, dispatch);
-  zonesAction.started();
+export const changePosition = createAction(
+  actionTypes.CHANGE_POSITION, (x, y) => ({ x, y })
+);
 
-  try {
-    const result = await request.zones();
-    if (result && result.length && result.length > 0) {
-      zonesAction.success(result);
-    } else zonesAction.success([]);
-  }
-  catch (e) {
-    zonesAction.failure(e);
-  }
-}
-
-export const getLocations = () => async dispatch => {
-  const locationAction = bindActionCreators(getLocationsAction, dispatch);
-  locationAction.started();
-
-  try {
-    const result = await request.locations();
-    if (result && result.length && result.length > 0) {
-      locationAction.success(result);
-    } else locationAction.success([]);
-  }
-  catch (e) {
-    locationAction.failure(e);
-  }
-}
-
-
-export const getPoints = () => async dispatch => {
-  const pointAction = bindActionCreators(getPointsAction, dispatch);
-  pointAction.started();
-
-  try {
-    const result = await request.points();
-    if (result && result.length && result.length > 0) {
-      pointAction.success(result);
-    } else pointAction.success([]);
-  }
-  catch (e) {
-    pointAction.failure(e);
-  }
-}
+export const changeZoom = createAction(
+  actionTypes.CHANGE_ZOOM, zoom => zoom
+);

@@ -1,13 +1,28 @@
 import React from 'react';
-import Sidebar from '../Sidebar';
-import Map from '../Map';
-import { AppContainer } from './elements';
+import App from './ui';
+import * as duck from './duck';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import { Loader } from './ui/elements';
 
-const App = () => (
-  <AppContainer>
-    <Sidebar />
-    <Map />
-  </AppContainer>
-);
+const mapStateToProps = state => ({
+  pending: state.app.pending,
+  zones: state.app.zones,
+  locations: state.app.locations,
+  points: state.app.points
+});
 
-export default App;
+const mapDispatchToProps = dispatch => bindActionCreators(duck.actions, dispatch);
+
+class AppContainer extends React.Component {
+  componentDidMount() {
+    const { getZones } = this.props;
+    getZones();
+  }
+
+  render() {
+    return <App pending = {this.props.pending} />
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(AppContainer);
