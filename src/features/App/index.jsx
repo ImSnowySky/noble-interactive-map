@@ -3,7 +3,6 @@ import App from './ui';
 import * as duck from './duck';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { Loader } from './ui/elements';
 
 const mapStateToProps = state => ({
   pending: state.app.pending,
