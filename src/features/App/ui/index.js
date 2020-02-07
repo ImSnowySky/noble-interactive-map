@@ -1,10 +1,16 @@
 import React from 'react';
 import Headbar from '../../Headbar';
 import Map from '../../Map';
-import { AppView, Loader } from './elements';
+import { AppView, Loader, LoaderContainer } from './elements';
+import Logo from '../../shared/Logo';
 
 const App = ({ pending }) => {
-  if (pending) return <Loader />
+  if (pending) return (
+    <LoaderContainer>
+      <Logo />
+      <Loader />
+    </LoaderContainer>
+  )
   else return (
     <AppView>
       <Headbar />
