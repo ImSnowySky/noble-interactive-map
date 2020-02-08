@@ -6,9 +6,6 @@ import { connect } from 'react-redux';
 
 const mapStateToProps = state => ({
   pending: state.app.pending,
-  zones: state.app.zones,
-  locations: state.app.locations,
-  points: state.app.points,
   currentZone: state.app.currentZone,
   currentLocation: state.app.currentLocation,
 });

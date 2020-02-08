@@ -25,9 +25,7 @@ export const getZones = () => async dispatch => {
   } else {
     try {
       const result = await request.zones();
-      if (result && result.length && result.length > 0) {
-        zonesAction.success(result);
-      } else zonesAction.success({ payload: [] });
+      zonesAction.success(result);
     }
     catch (e) {
       zonesAction.failure(e);
@@ -41,9 +39,7 @@ export const getLocations = (zone) => async dispatch => {
 
   try {
     const result = await request.locations(zone.id);
-    if (result && result.length && result.length > 0) {
-      locationAction.success(result);
-    } else locationAction.success({ payload: [] });
+    locationAction.success(result);
   }
   catch (e) {
     locationAction.failure(e);
@@ -57,9 +53,7 @@ export const getPoints = (location) => async dispatch => {
 
   try {
     const result = await request.points(location.id);
-    if (result && result.length && result.length > 0) {
-      pointAction.success(result);
-    } else pointAction.success({ payload: [] });
+    pointAction.success(result);
   }
   catch (e) {
     pointAction.failure(e);

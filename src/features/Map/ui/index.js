@@ -1,6 +1,7 @@
 import React from 'react';
 import { MapContainer, CurrentMap } from './elements';
 import mockMap from './assets/test.png';
+import Points from '../../Points';
 
 class MapView extends React.Component {
   containerRef = React.createRef();
@@ -42,7 +43,7 @@ class MapView extends React.Component {
     const { deltaY: delta } = e;
     const { zoom, changeZoom } = this.props;
     const newZoom = zoom - delta / 2000;
-    if (newZoom > 0.75 && newZoom < 1.5) {
+    if (newZoom > 0.65 && newZoom < 1.5) {
       changeZoom(newZoom);
     }
   }
@@ -54,6 +55,7 @@ class MapView extends React.Component {
       map.addEventListener('mouseup', this.stopScrollWithMouse);
       map.addEventListener('mousemove', this.scrollWithMouse);
       map.addEventListener('wheel', this.zoomWithWheel);
+      map.addEventListener('mouseleave', this.stopScrollWithMouse);
     }
   }
 
@@ -75,6 +77,7 @@ class MapView extends React.Component {
           }
           zoom = {zoom}
         />
+        <Points />
       </MapContainer>
     )
   }

@@ -22,4 +22,7 @@ export const MapContainer = styled.div`
 export const CurrentMap = styled.img`
   display: block;
   height: ${({ zoom = 1 }) => `calc(1600px * ${zoom})`};
+  position: absolute;
+  top: 0;
+  left: 0;
 `;
