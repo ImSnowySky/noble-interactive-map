@@ -12,3 +12,11 @@ export const changePosition = createAction(
 export const changeZoom = createAction(
   actionTypes.CHANGE_ZOOM, zoom => zoom
 );
+
+export const changeCurrentMousePosition = createAction(
+  actionTypes.CHANGE_CURRENT_MOUSE_POSITION, (x, y) => ({ x, y }),
+);
+
+export const changeWatchForMouse = createAction(
+  actionTypes.CHANGE_WATCH_FOR_MOUSE, watch => watch,
+);

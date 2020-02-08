@@ -1,5 +1,11 @@
 import { handleActions } from 'redux-actions';
-import { getZonesAction, getLocationsAction, getPointsAction, changeCurrentZone, changeCurrentLocation } from './actions';
+import {
+	getZonesAction,
+	getLocationsAction,
+	getPointsAction,
+	changeCurrentZone,
+	changeCurrentLocation,
+} from './actions';
 
 const initialState = {
   pending: false,

@@ -6,11 +6,17 @@ import backIcon from './assets/back.svg';
 class Sidebar extends React.Component {
   state = { opened: true };
 
+  goBack = () => {
+    window.history.back();
+  }
+
   render() {
     return <HeaderContainer>
-      <BackButton>
-        <img src = {backIcon} alt = 'back' />
-      </BackButton>
+      {
+        window.history.length > 0 && <BackButton onClick = {this.goBack}>
+          <img src = {backIcon} alt = 'back' />
+        </BackButton>
+      }
       <LogoContainer>
         <a href = 'http://noblegarden.club'><Logo /></a>
       </LogoContainer>

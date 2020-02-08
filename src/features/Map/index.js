@@ -10,6 +10,7 @@ const mapStateToProps = state => ({
   y: state.map.y,
   zoom: state.map.zoom,
   map: state.app.currentLocation,
+  watchForMosue: state.map.watchForMosue,
 });
 
 const mapDispatchToProps = dispatch => bindActionCreators(duck.actions, dispatch);
