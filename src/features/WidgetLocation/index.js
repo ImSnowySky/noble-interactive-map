@@ -9,13 +9,79 @@ const mapStateToProps = state => ({
 });
 
 class WidgetLocationContainer extends React.Component {
+  state = { top: 80, left: 24, moving: false, mouseX: 0, mouseY: 0 };
+  wrapperRef = React.createRef();
+
+  drag = e => {
+    const { moving, mouseX, mouseY } = this.state;
+    if (!moving) return;
+    const { screenX: newX, screenY: newY } = e;
+    const delta = {
+      x: newX - mouseX,
+      y: newY - mouseY,
+    };
+
+    const getNewLeftPosition = () => {
+      if (this.state.left + delta.x > window.innerWidth - 280) return window.innerWidth - 280;
+      else if (this.state.left + delta.x < 0) return 0;
+      else return this.state.left + delta.x;
+    }
+
+    const getNewTopPosition = () => {
+      if (this.state.top + delta.y > window.innerHeight - this.wrapperRef.current.offsetHeight) {
+        return window.innerHeight - this.wrapperRef.current.offsetHeight;
+      }
+      else if (this.state.top + delta.y < 68) return 68;
+      else return this.state.top + delta.y;
+    }
+
+    this.setState({
+      mouseX: newX,
+      mouseY: newY,
+      left: getNewLeftPosition(),
+      top: getNewTopPosition(),
+    });
+  }
+
+  componentDidMount() {
+    window.addEventListener('mousemove', this.drag)
+  }
+
+  onMouseDown = e => {
+    this.setState({
+      moving: true,
+      mouseX: e.screenX,
+      mouseY: e.screenY,
+    });
+  }
+
+  onMouseUp = () => {
+    this.setState({ moving: false });
+  }
+
+  onMouseLeave = () => {
+    this.setState({ moving: false });
+  }
+
   render() {
+    const { top, left, moving } = this.state;
     const { zones, locations, currentZone } = this.props;
     if (!zones) return null;    
     return (
-      <Widget>
+      <Widget
+        style = {{ top, left }}
+        ref = {this.wrapperRef}
+        onMouseDown = {this.onMouseDown}
+        onMouseUp = {this.onMouseUp}
+        onMouseLeave = {this.onMouseLeave}
+        moving = {moving}
+      >
         <Title>Зона</Title>
-        <select defaultValue = {currentZone} value = {currentZone}>
+        <select
+          defaultValue = {currentZone}
+          value = {currentZone}
+          onMouseDown = { e => e.stopPropagation() }
+        >
           {
             zones.map(
               zone => (

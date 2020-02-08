@@ -26,12 +26,13 @@ export const getZones = () => async dispatch => {
   }
 }
 
-export const getLocations = () => async dispatch => {
+export const getLocations = (zone) => async dispatch => {
   const locationAction = bindActionCreators(getLocationsAction, dispatch);
   locationAction.started();
 
   try {
-    const result = await request.locations();
+    const result = await request.locations(zone);
+    console.log(result);
     if (result && result.length && result.length > 0) {
       locationAction.success(result);
     } else locationAction.success({ payload: [] });
