@@ -88,15 +88,21 @@ class WidgetLocationContainer extends React.Component {
           onMouseDown = { e => e.stopPropagation() }
         >
           {
-            zones.map(
-              zone => (
-                <option value = {zone.id} key = {zone.id}>
-                  {zone.name}
-                </option>
-              )
-            )
+            zones.map(zone => <option value = {zone.id} key = {zone.id}>{zone.name}</option>)
           }
         </select>
+        {
+          locations && locations.length > 0
+            ? (
+              <>
+                <Title>Локация</Title>
+                <select>
+                  {locations.map(location => <option value = {location.id} key = {location.id}>{location.name}</option>)}
+                </select>
+              </>
+            )
+            : null
+        }
       </Widget>
     );
   }
