@@ -25,10 +25,10 @@ class MapView extends React.Component {
 
     if (containerRef && containerRef.current) {
       const { current: map } = containerRef;
-      const { screenX, screenY } = e;
+      const { clientX, clientY } = e;
       changeCurrentMousePosition(
-        Math.floor((screenX + map.scrollLeft) / zoom),
-        Math.floor((screenY + map.scrollTop) / zoom)
+        Math.floor((clientX + map.scrollLeft) / zoom),
+        Math.floor((clientY - map.getBoundingClientRect().top + map.scrollTop) / zoom)
       );
     }
   }
