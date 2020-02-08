@@ -8,6 +8,10 @@ export const changeCurrentZone = createAction(
   actionTypes.CHANGE_CURRENT_ZONE, zone => zone
 );
 
+export const changeCurrentLocation = createAction(
+  actionTypes.CHANGE_CURRENT_LOCATION, location => location
+);
+
 export const getZonesAction = createAsyncAction(actionTypes.GET_ZONES);
 export const getLocationsAction = createAsyncAction(actionTypes.GET_LOCATIONS);
 export const getPointsAction = createAsyncAction(actionTypes.GETPOINTS);
@@ -36,7 +40,7 @@ export const getLocations = (zone) => async dispatch => {
   locationAction.started();
 
   try {
-    const result = await request.locations(zone);
+    const result = await request.locations(zone.id);
     if (result && result.length && result.length > 0) {
       locationAction.success(result);
     } else locationAction.success({ payload: [] });
@@ -47,12 +51,12 @@ export const getLocations = (zone) => async dispatch => {
 }
 
 
-export const getPoints = () => async dispatch => {
+export const getPoints = (location) => async dispatch => {
   const pointAction = bindActionCreators(getPointsAction, dispatch);
   pointAction.started();
 
   try {
-    const result = await request.points();
+    const result = await request.points(location.id);
     if (result && result.length && result.length > 0) {
       pointAction.success(result);
     } else pointAction.success({ payload: [] });

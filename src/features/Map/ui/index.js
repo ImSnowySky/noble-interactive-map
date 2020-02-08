@@ -1,6 +1,6 @@
 import React from 'react';
 import { MapContainer, CurrentMap } from './elements';
-import map from './assets/test.png';
+import mockMap from './assets/test.png';
 
 class MapView extends React.Component {
   containerRef = React.createRef();
@@ -58,10 +58,25 @@ class MapView extends React.Component {
   }
 
   render() {
-    const { scrolling, zoom } = this.props;
-    return <MapContainer ref = {this.containerRef} draggable = "true" scrolling = {scrolling}>
-      <CurrentMap src = {map} zoom = {zoom}/>
-    </MapContainer>
+    const { scrolling, zoom, map } = this.props;
+    return (
+      <MapContainer
+        ref = {this.containerRef}
+        draggable = "true"
+        scrolling = {scrolling}
+      >
+        <CurrentMap
+          src = {
+            window.location.href.includes('localhost')
+              ? mockMap
+              : map
+                ? map.map
+                : null
+          }
+          zoom = {zoom}
+        />
+      </MapContainer>
+    )
   }
 }
 

@@ -10,6 +10,7 @@ const mapStateToProps = state => ({
   locations: state.app.locations,
   points: state.app.points,
   currentZone: state.app.currentZone,
+  currentLocation: state.app.currentLocation,
 });
 
 const mapDispatchToProps = dispatch => bindActionCreators(duck.actions, dispatch);
@@ -21,10 +22,14 @@ class AppContainer extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    const { currentZone: prevZone } = prevProps;
-    const { currentZone, getLocations } = this.props;
+    const { currentZone: prevZone, currentLocation: prevLocation } = prevProps;
+    const { currentZone, currentLocation, getLocations, getPoints } = this.props;
 
-    if (currentZone !== prevZone) getLocations(currentZone);
+    const isZoneChanged = currentZone && prevZone ? currentZone.id !== prevZone.id : true;
+    const isLocationChanged = currentLocation && prevLocation ? currentLocation.id !== prevLocation.id : true;
+
+    if (isZoneChanged) getLocations(currentZone);
+    if (isLocationChanged) getPoints(currentLocation); 
   }
 
   render() {

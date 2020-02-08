@@ -7,6 +7,7 @@ import * as duck from '../App/duck';
 const mapStateToProps = state => ({
   zones: state.app.zones,
   currentZone: state.app.currentZone,
+  currentLocation: state.app.currentLocation,
   locations: state.app.locations,
 });
 
@@ -69,7 +70,7 @@ class WidgetLocationContainer extends React.Component {
 
   render() {
     const { top, left, moving } = this.state;
-    const { zones, locations, currentZone, changeCurrentZone } = this.props;
+    const { zones, locations, currentZone, currentLocation, changeCurrentZone, changeCurrentLocation } = this.props;
     if (!zones) return null;    
     return (
       <Widget
@@ -79,13 +80,13 @@ class WidgetLocationContainer extends React.Component {
         onMouseUp = {this.onMouseUp}
         onMouseLeave = {this.onMouseLeave}
         moving = {moving}
-        onChange = {e => changeCurrentZone(e.target.value) }
       >
         <Title>Зона</Title>
         <select
-          defaultValue = {currentZone}
-          value = {currentZone}
+          defaultValue = {currentZone ? currentZone.id : null}
+          value = {currentZone ? currentZone.id : null}
           onMouseDown = { e => e.stopPropagation() }
+          onChange = {e => changeCurrentZone(zones.find(zone => zone.id === e.target.value) || null) }
         >
           {
             zones.map(zone => <option value = {zone.id} key = {zone.id}>{zone.name}</option>)
@@ -96,7 +97,12 @@ class WidgetLocationContainer extends React.Component {
             ? (
               <>
                 <Title>Локация</Title>
-                <select>
+                <select
+                  defaultValue = {currentLocation ? currentLocation.id : null}
+                  value = {currentLocation ? currentLocation.id : null}
+                  onMouseDown = { e => e.stopPropagation() }
+                  onChange = {e => changeCurrentLocation(locations.find(location => location.id === e.target.value) || null) }
+                >
                   {locations.map(location => <option value = {location.id} key = {location.id}>{location.name}</option>)}
                 </select>
               </>

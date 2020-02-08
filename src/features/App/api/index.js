@@ -10,12 +10,11 @@ class RequestMaps extends Request {
   async locations(currentZone) {
     const prepURL = this.buildURL('locations', { zone: currentZone });
     const answer = await this.execute(prepURL);
-    console.log(answer);
     return answer;
   }
 
-  async points() {
-    const prepURL = this.buildURL('points');
+  async points(currentLocation) {
+    const prepURL = this.buildURL('points', { location: currentLocation });
     const answer = await this.execute(prepURL);
     return answer;
   }

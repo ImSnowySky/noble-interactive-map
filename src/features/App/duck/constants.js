@@ -8,6 +8,7 @@ export const actionTypes = keyMirror(
 		GET_LOCATIONS: null,
 		GET_POINTS: null,
 		CHANGE_CURRENT_ZONE: null,
+		CHANGE_CURRENT_LOCATION: null,
 	},
 	FEATURE_NAME,
 );
