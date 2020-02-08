@@ -15,7 +15,7 @@ const getBaseURLByEnv = (env = ENV.DEV) => {
 }
 
 class Request {
-  constructor(env = ENV.DEV) {
+  constructor(env = ENV.PROD) {
     this.baseURL = getBaseURLByEnv(env);
   }
 

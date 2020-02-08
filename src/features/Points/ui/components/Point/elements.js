@@ -3,11 +3,28 @@ import styled from 'styled-components';
 import alchemy from './assets/alchemy.png';
 import blacksmith from './assets/blacksmith.jpg';
 import cup from './assets/cup.jpg';
+import crate from './assets/crate.jpg';
 import first_aid from './assets/first_aid.png';
 import skull from './assets/skull.jpg';
 import tailoring from './assets/tailoring.jpg';
+import chest from './assets/chest.png';
+import chest_box from './assets/chest_box.jpg';
+import quest from './assets/quest.png';
+import swords from './assets/swords.png';
+import cross from './assets/cross.jpg';
+import campfire from './assets/campfire.jpg';
+import stealth from './assets/stealth.jpg';
+import barrel from './assets/barrel.jpg';
+import wine from './assets/wine.jpg';
+import statue from './assets/statue.jpg';
+import gold from './assets/gold.jpg';
+import house_human from './assets/house_human.png';
 
-const getIconByName = { alchemy, blacksmith, cup, first_aid, skull, tailoring };
+const getIconByName = {
+  alchemy,blacksmith, barrel, chest_box, cross, crate, 
+  campfire, cup, first_aid, skull, stealth, tailoring,
+  chest, quest, swords, wine, statue, gold, house_human
+};
 
 export const DescriptionContainer = styled.div`
   display: flex;
