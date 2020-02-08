@@ -1,5 +1,5 @@
 import { handleActions } from 'redux-actions';
-import { getZonesAction, getLocationsAction, getPointsAction, getLocations } from './actions';
+import { getZonesAction, getLocationsAction, getPointsAction, changeCurrentZone } from './actions';
 
 const initialState = {
   pending: false,
@@ -11,6 +11,7 @@ const initialState = {
 
 export default handleActions(
 	{
+		[changeCurrentZone]: (state, { payload }) => ({ ...state, currentZone: payload }),
 		[getZonesAction.started]: (state) => ({ ...state, pending: true }),
 		[getZonesAction.success]: (state, { payload }) => ({
 			...state,

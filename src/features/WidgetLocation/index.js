@@ -1,12 +1,16 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Widget, Title } from './elements';
+import { bindActionCreators } from 'redux';
+import * as duck from '../App/duck';
 
 const mapStateToProps = state => ({
   zones: state.app.zones,
   currentZone: state.app.currentZone,
   locations: state.app.locations,
 });
+
+const mapDispatchToProps = dispatch => bindActionCreators(duck.actions, dispatch);
 
 class WidgetLocationContainer extends React.Component {
   state = { top: 80, left: 24, moving: false, mouseX: 0, mouseY: 0 };
@@ -65,7 +69,7 @@ class WidgetLocationContainer extends React.Component {
 
   render() {
     const { top, left, moving } = this.state;
-    const { zones, locations, currentZone } = this.props;
+    const { zones, locations, currentZone, changeCurrentZone } = this.props;
     if (!zones) return null;    
     return (
       <Widget
@@ -75,6 +79,7 @@ class WidgetLocationContainer extends React.Component {
         onMouseUp = {this.onMouseUp}
         onMouseLeave = {this.onMouseLeave}
         moving = {moving}
+        onChange = {e => changeCurrentZone(e.target.value) }
       >
         <Title>Зона</Title>
         <select
@@ -97,4 +102,4 @@ class WidgetLocationContainer extends React.Component {
   }
 }
 
-export default connect(mapStateToProps)(WidgetLocationContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(WidgetLocationContainer);

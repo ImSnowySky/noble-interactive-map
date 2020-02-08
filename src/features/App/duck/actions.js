@@ -1,7 +1,12 @@
 import request from '../api';
 import { bindActionCreators } from 'redux';
+import { createAction } from 'redux-actions';
 import { actionTypes } from './constants';
 import createAsyncAction from '../../../helpers/create-async-action';
+
+export const changeCurrentZone = createAction(
+  actionTypes.CHANGE_CURRENT_ZONE, zone => zone
+);
 
 export const getZonesAction = createAsyncAction(actionTypes.GET_ZONES);
 export const getLocationsAction = createAsyncAction(actionTypes.GET_LOCATIONS);
@@ -32,7 +37,6 @@ export const getLocations = (zone) => async dispatch => {
 
   try {
     const result = await request.locations(zone);
-    console.log(result);
     if (result && result.length && result.length > 0) {
       locationAction.success(result);
     } else locationAction.success({ payload: [] });
