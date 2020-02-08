@@ -32,8 +32,8 @@ export const Icon = styled.div`
   box-sizing: border-box;
   background-size: cover;
   position: absolute;
-  left: ${({ left, zoom }) => left * zoom}px;
-  top: ${({ top, zoom }) => top * zoom}px;
+  left: ${({ x, zoom }) => x * zoom}px;
+  top: ${({ y, zoom }) => y * zoom}px;
   transform: translate(-50%, -50%);
   opacity: 0.75;
   transition: opacity 250ms ease-in-out;

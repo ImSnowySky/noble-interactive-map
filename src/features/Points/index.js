@@ -7,15 +7,7 @@ const mapStateToProps = state => ({
   points: state.app.points,
 });
 
-
-class PointsContainer extends React.Component {
-  render() {
-    const { zoom, points = []} = this.props;
-    if (!points) return null;
-    return (
-      <PointsView zoom = {zoom} points = {points}/>
-    )
-  }
-}
+const PointsContainer = ({ zoom = 1, points = [] }) =>
+  points ? <PointsView zoom = {zoom} points = {points} /> : null
 
 export default connect(mapStateToProps)(PointsContainer);

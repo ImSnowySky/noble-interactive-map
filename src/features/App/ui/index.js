@@ -5,20 +5,15 @@ import { AppView, Loader, LoaderContainer } from './elements';
 import Logo from '../../shared/Logo';
 import WidgetLocation from '../../WidgetLocation';
 
-const App = ({ pending }) => {
-  if (pending) return (
-    <LoaderContainer>
+const App = ({ pending }) => pending
+  ? <LoaderContainer>
       <Logo />
       <Loader />
     </LoaderContainer>
-  )
-  else return (
-    <AppView>
+  : <AppView>
       <Headbar />
       <Map />
       <WidgetLocation />
     </AppView>
-  )
-};
 
 export default App;

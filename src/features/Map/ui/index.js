@@ -68,13 +68,7 @@ class MapView extends React.Component {
         scrolling = {scrolling}
       >
         <CurrentMap
-          src = {
-            window.location.href.includes('localhost')
-              ? mockMap
-              : map
-                ? map.map
-                : null
-          }
+          src = { window.location.href.includes('localhost') ? mockMap : map ? map.map : null }
           zoom = {zoom}
         />
         <Points />

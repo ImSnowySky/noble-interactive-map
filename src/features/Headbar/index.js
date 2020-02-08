@@ -12,9 +12,7 @@ class Sidebar extends React.Component {
         <img src = {backIcon} alt = 'back' />
       </BackButton>
       <LogoContainer>
-        <a href = 'http://noblegarden.club'>
-          <Logo />
-        </a>
+        <a href = 'http://noblegarden.club'><Logo /></a>
       </LogoContainer>
       <SubnameContainer>Интерактивная карта локаций</SubnameContainer>
     </HeaderContainer>

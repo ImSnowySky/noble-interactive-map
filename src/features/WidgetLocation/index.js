@@ -52,21 +52,14 @@ class WidgetLocationContainer extends React.Component {
     window.addEventListener('mousemove', this.drag)
   }
 
-  onMouseDown = e => {
-    this.setState({
-      moving: true,
-      mouseX: e.screenX,
-      mouseY: e.screenY,
-    });
-  }
+  onMouseDown = e => this.setState({
+    moving: true,
+    mouseX: e.screenX,
+    mouseY: e.screenY,
+  });
 
-  onMouseUp = () => {
-    this.setState({ moving: false });
-  }
-
-  onMouseLeave = () => {
-    this.setState({ moving: false });
-  }
+  onMouseUp = () => this.setState({ moving: false });
+  onMouseLeave = () => this.setState({ moving: false });
 
   render() {
     const { top, left, moving } = this.state;
